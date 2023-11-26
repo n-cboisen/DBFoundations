@@ -164,6 +164,7 @@ go
 
 /********************************* Questions and Answers *********************************/
 print 
+
 'NOTES------------------------------------------------------------------------------------ 
  1) You can use any name you like for you views, but be descriptive and consistent
  2) You can use your working code from assignment 5 for much of this assignment
@@ -175,6 +176,7 @@ print
 --        2) Create one view per table!
 --		  3) Use SchemaBinding to protect the views from being orphaned!
 
+GO 
 -- Create basic view for Categories 
 CREATE -- DROP
 VIEW vCategories
@@ -247,6 +249,8 @@ GRANT SELECT ON vProducts to PUBLIC;
 GRANT SELECT ON vEmployees to PUBLIC;
 GRANT SELECT ON vInventories to PUBLIC;
 
+GO
+
 -- Question 3 (10% pts): How can you create a view to show a list of Category and Product names, 
 -- and the price of each product?
 -- Order the result by the Category and Product!
@@ -261,8 +265,6 @@ AS
 	ORDER BY [Category Name], [Product Name];
 GO
 
-SELECT * FROM vProductsByCategories;
-
 -- Question 4 (10% pts): How can you create a view to show a list of Product names 
 -- and Inventory Counts on each Inventory Date?
 -- Order the results by the Product, Date, and Count!
@@ -276,7 +278,6 @@ AS
 	ORDER BY [Product Name], [Inventory Date], [Count];
 GO
 
-SELECT * FROM vInventoriesByProductsByDates;
 
 -- Question 5 (10% pts): How can you create a view to show a list of Inventory Dates 
 -- and the Employee that took the count?
@@ -291,8 +292,6 @@ AS
 				ON I.EmployeeID = E.EmployeeID
 	ORDER BY [Inventory Date], [Employee Name];
 GO
-
-SELECT * FROM vInventoriesByEmployeesByDates;	
 
 -- Question 6 (10% pts): How can you create a view show a list of Categories, Products, 
 -- and the Inventory Date and Count of each product?
@@ -309,8 +308,6 @@ AS
 				ON P.ProductID = I.ProductID 
 	ORDER BY [Category Name], [Product Name], [Inventory Date], [Count];
 GO
-
-SELECT * FROM vInventoriesByProductsByCategories;
 
 -- Question 7 (10% pts): How can you create a view to show a list of Categories, Products, 
 -- the Inventory Date and Count of each product, and the EMPLOYEE who took the count?
@@ -330,8 +327,6 @@ AS
 	ORDER BY [Inventory Date], [Category Name], [Product Name], [Employee Name];
 GO
 
-SELECT * FROM vInventoriesByProductsByEmployees
-
 -- Question 8 (10% pts): How can you create a view to show a list of Categories, Products, 
 -- the Inventory Date and Count of each product, and the Employee who took the count
 -- for the Products 'Chai' and 'Chang'? 
@@ -350,8 +345,6 @@ AS
 	ORDER BY [Inventory Date], [Category Name], [Product Name], [Employee Name];
 GO
 
-SELECT * FROM vInventoriesForChaiAndChangByEmployees
-
 -- Question 9 (10% pts): How can you create a view to show a list of Employees and the Manager who manages them?
 -- Order the results by the Manager's name!
 
@@ -364,8 +357,6 @@ AS
 				ON E.ManagerID = M.EmployeeID -- create and combine manager name column with employee name columns (from e table and m table)
 	ORDER BY [Manager], [Employee];
 GO
-
-SELECT * FROM vEmployeesByManager
 
 -- Question 10 (20% pts): How can you create one view to show all the data from all four 
 -- BASIC Views? Also show the Employee's Manager Name and order the data by 
@@ -390,7 +381,7 @@ AS
 	ORDER BY [Category ID], [Product ID], [Inventory ID], [Employee ID];
 GO
 
-SELECT * FROM vInventoriesByProductsByCategoriesByEmployees
+Sp_helpText vInventoriesByProductsByCategoriesByEmployees
 
 -- Test your Views (NOTE: You must change the your view names to match what I have below!)
 Print 'Note: You will get an error until the views are created!'
@@ -407,5 +398,7 @@ Select * From [dbo].[vInventoriesByProductsByEmployees]
 Select * From [dbo].[vInventoriesForChaiAndChangByEmployees]
 Select * From [dbo].[vEmployeesByManager]
 Select * From [dbo].[vInventoriesByProductsByCategoriesByEmployees]
+
+
 
 /***************************************************************************************/
